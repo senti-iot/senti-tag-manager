@@ -7,7 +7,7 @@ Documentation=https://github.com/senti-iot/senti-tag-manager/blob/master/README.
 [Service]
 WorkingDirectory=/srv/nodejs/senti/services/tagmanager/production
 ExecStart=/usr/bin/node server.js
-Environment=NODE_PORT=3029
+Environment=NODE_PORT=3033
 Environment=NODE_ENV=production
 Type=simple
 Restart=always
