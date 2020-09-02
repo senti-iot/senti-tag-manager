@@ -9,9 +9,10 @@ const cors = require('cors')
 const helmet = require('helmet')
 const app = express()
 
-// API endpoint imports
 
 const port = process.env.NODE_PORT || 3029
+
+// App Defaults
 
 app.use(helmet())
 app.use(express.json())
@@ -19,6 +20,11 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use(cors())
 
+// API endpoint imports
+const test = require('./services/api/test')
+
+// API inject into express
+app.use([test])
 
 //---Start the express server---------------------------------------------------
 
