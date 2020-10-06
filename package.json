@@ -1,5 +1,5 @@
 {
-	"name": "gateway",
+	"name": "senti-tag-manager",
 	"version": "0.0.4",
 	"deprecated": false,
 	"description": "Senti Gateway service",
@@ -38,10 +38,14 @@
 		"find-config": "^1.0.0",
 		"helmet": "^4.1.0",
 		"moment": "^2.27.0",
-		"mqtt": "^4.2.1"
+		"mqtt": "^4.2.1",
+		"mysql2": "^2.2.5",
+		"rfr": "^1.2.3",
+		"senti-apicore": "0.0.50",
+		"uuid": "^8.3.1"
 	},
 	"devDependencies": {
-		"eslint": "^6.7.2",
+		"eslint": "^6.8.0",
 		"eslint-config-google": "^0.14.0",
 		"babel-eslint": "^10.1.0"
 	}

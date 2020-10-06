@@ -1,5 +1,6 @@
 #!/usr/bin/env nodejs
 process.title = "senti_tag_manager"
+exports = module.exports = {}
 const dotenv = require('dotenv').config()
 if (dotenv.error) {
 	console.warn(dotenv.error)
@@ -20,11 +21,34 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use(cors())
 
+
+// const test = require('./services/api/test')
+
+
+// ACL Client
+
+const sentiAuthClient = require('senti-apicore').sentiAuthClient
+const authClient = new sentiAuthClient(process.env.AUTHCLIENTURL, process.env.PASSWORDSALT)
+module.exports.authClient = authClient
+
+const sentiAclBackend = require('senti-apicore').sentiAclBackend
+const sentiAclClient = require('senti-apicore').sentiAclClient
+
+const aclBackend = new sentiAclBackend(process.env.ACLBACKENDTURL)
+const aclClient = new sentiAclClient(aclBackend)
+module.exports.aclClient = aclClient
+
+// module.exports = {
+// 	aclClient: aclClient,
+// 	authClient: authClient
+// }
+
 // API endpoint imports
-const test = require('./services/api/test')
+
+const createTag = require('./services/api/createTag')
 
 // API inject into express
-app.use([test])
+app.use([createTag])
 
 //---Start the express server---------------------------------------------------
 
