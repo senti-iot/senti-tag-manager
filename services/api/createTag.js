@@ -1,23 +1,11 @@
 const express = require('express')
 const router = express.Router()
 const rfr = require('rfr')
-const { sentiAclPriviledge, /* sentiAclResourceType */ } = require('senti-apicore')
-const { aclClient, authClient } = require('../../server')
+const { sentiAclPriviledge } = require('senti-apicore')
+const { aclClient } = require('../../server')
 
 const sentiTagService = rfr('lib/tag/tagService')
-console.log(sentiTagService)
 const tagService = new sentiTagService()
-
-router.all('*', async (req, res, next) => {
-
-	let lease = await authClient.getLease(req)
-	if (lease === false) {
-		res.status(401).json()
-		return
-	}
-	req.lease = lease
-	next()
-})
 
 const typeOfPrivilege = (resourceType) => {
 	switch (resourceType) {
