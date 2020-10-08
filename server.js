@@ -1,6 +1,6 @@
 #!/usr/bin/env nodejs
 process.title = "senti_tag_manager"
-exports = module.exports = {}
+
 const dotenv = require('dotenv').config()
 if (dotenv.error) {
 	console.warn(dotenv.error)
