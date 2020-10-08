@@ -35,7 +35,6 @@ const typeOfPrivilege = (resourceType) => {
 
 router.post('/create', async (req, res) => {
 	try {
-		console.log('Entered')
 		let tag = req.body.tag
 		let resourceTag = {
 			resourceUUID: req.body.resourceUUID,
