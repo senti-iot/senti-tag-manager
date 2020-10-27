@@ -1,11 +1,13 @@
 const express = require('express')
 const router = express.Router()
 const rfr = require('rfr')
+
 const { sentiAclPriviledge } = require('senti-apicore')
-const { aclClient } = require('../../server')
+const { aclClient } = rfr('server')
 
 const sentiTagService = rfr('lib/tag/tagService')
 const tagService = new sentiTagService()
+
 
 const typeOfPrivilege = (resourceType) => {
 	switch (resourceType) {
@@ -28,46 +30,47 @@ const typeOfPrivilege = (resourceType) => {
 		case 15: // Dashboard
 			return sentiAclPriviledge.dashboard.modify
 		default:
-			break;
+			break
 	}
 
 }
 
-router.post('/create', async (req, res) => {
-	try {
-		let tag = req.body
-		let result = await tagService.createTag(tag)
-		if (result) {
-			res.status(200).json(result)
-		}
-		else {
-			res.status(500).json()
-		}
+router.delete('/delete', async (req, res) => {
+	let tagUUID = req.body.tagUUID
+
+	/*TODO: ACL */
+	let result = await tagService.deleteTag(tagUUID)
+	if (result && !result.error) {
+		res.status(200).json(result)
 	}
-	catch (e) {
-		console.log(e)
-		res.status(500).json(e)
+	if (result.error) {
+		res.status(409).json()
+	}
+	else {
+		res.status(500).json()
 	}
 })
 
-router.post('/add', async (req, res) => {
+
+router.post('/remove', async (req, res) => {
 	let tagUUID = req.body.tagUUID
 	let resources = req.body.resources
-
 
 	let access = await Promise.all(resources.map(async r => await aclClient.testPrivileges(req.lease.uuid, r.resourceUUID, [typeOfPrivilege(r.resourceType)])))
 	if (access[access.findIndex(f => f.allowed === false)]) {
 		res.status(403).json()
 		return
 	}
-	let result = await tagService.addRTagToResources(tagUUID, resources)
-	console.log('Add Tag to Resources', result)
+
+	let result = await tagService.removeRTagFromResources(tagUUID, resources)
 	if (result) {
 		res.status(200).json(result)
 	}
 	else {
 		res.status(500).json()
 	}
+
+
 })
 
 module.exports = router

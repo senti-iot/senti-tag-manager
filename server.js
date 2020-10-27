@@ -47,9 +47,9 @@ module.exports.aclClient = aclClient
 const auth = require('./services/api/auth')
 const createTag = require('./services/api/createTag')
 const getTags = require('./services/api/getTags')
-
+const removeTags = require('./services/api/deleteTag')
 // API inject into express
-app.use([auth, createTag, getTags])
+app.use([auth, createTag, getTags, removeTags])
 
 //---Start the express server---------------------------------------------------
 
