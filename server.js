@@ -46,10 +46,11 @@ module.exports.aclClient = aclClient
 // API endpoint imports
 const auth = require('./services/api/auth')
 const createTag = require('./services/api/createTag')
+const editTag = require('./services/api/editTag')
 const getTags = require('./services/api/getTags')
 const removeTags = require('./services/api/deleteTag')
 // API inject into express
-app.use([auth, createTag, getTags, removeTags])
+app.use([auth, createTag, editTag, getTags, removeTags])
 
 //---Start the express server---------------------------------------------------
 
