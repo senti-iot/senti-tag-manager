@@ -33,7 +33,7 @@ const typeOfPrivilege = (resourceType) => {
 }
 
 router.post('/add', async (req, res) => {
-	let tagUUID = req.body.tagUUID
+	let tagUUIDs = req.body.tagUUIDs
 	let resources = req.body.resources
 
 
@@ -42,7 +42,7 @@ router.post('/add', async (req, res) => {
 		res.status(403).json()
 		return
 	}
-	let result = await tagService.addRTagToResources(tagUUID, resources)
+	let result = await tagService.addRTagToResources(tagUUIDs, resources)
 	console.log('Add Tag to Resources', result)
 	if (result) {
 		res.status(200).json(result)
