@@ -43,7 +43,7 @@
 		"mqtt": "^4.2.1",
 		"mysql2": "^2.2.5",
 		"rfr": "^1.2.3",
-		"senti-apicore": "0.0.50",
+		"senti-apicore": "0.0.52",
 		"uuid": "^8.3.1"
 	},
 	"devDependencies": {
