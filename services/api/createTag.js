@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const { sentiAclPriviledge, sentiAclResourceType, se, sentiData } = require('senti-apicore')
-const { aclClient } = require('../../server')
+// const { sentiAclPriviledge, sentiAclResourceType, se, sentiData } = require('senti-apicore')
+// const { aclClient } = require('../../server')
 
 const sentiDatabrokerCoreService = require('../../lib/databrokerCore/sentiCoreService')
 const sentiDataCore = new sentiDatabrokerCoreService()
@@ -39,6 +39,8 @@ router.post('/create', async (req, res) => {
 	try {
 		console.log(req.lease.uuid)
 		let orgId = await sentiDataCore.getOrganisationIdByUserUUID(req.lease.uuid)
+		let appId = req.headers.appid
+		console.log(req.headers)
 		let aclOrgResources = await sentiDataCore.getAclOrgResourcesOnName(orgId)
 		console.log('OrgId', orgId)
 		console.log('aclOrgResource', aclOrgResources)
@@ -46,10 +48,11 @@ router.post('/create', async (req, res) => {
 			res.status(500).json()
 		}
 		let tag = req.body
-		let result = await tagService.createTag(tag)
+		let result = await tagService.createTag({ ...tag, orgId, appId })
 		if (result) {
 
-			await aclClient.addResourceToParent(result.uuid, aclOrgResources['features'].uuid)
+			// await aclClient.addResourceToParent(result.uuid, aclOrgResources['features'].uuid)
+
 			res.status(200).json(result)
 		}
 		else {
