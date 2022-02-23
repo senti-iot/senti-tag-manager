@@ -70,3 +70,4 @@ const startServer = () => {
 }
 
 startServer()
+console.log('Node version:', process.version)

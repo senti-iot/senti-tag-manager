@@ -43,12 +43,12 @@
 		"mqtt": "^4.2.1",
 		"mysql2": "^2.2.5",
 		"rfr": "^1.2.3",
-		"senti-apicore": "0.0.53",
+		"senti-apicore": "^0.0.61",
 		"uuid": "^8.3.1"
 	},
 	"devDependencies": {
-		"eslint": "^6.8.0",
+		"eslint": "^8.9.0",
 		"eslint-config-google": "^0.14.0",
-		"babel-eslint": "^10.1.0"
+		"@babel/eslint-parser": "^7.17.0"
 	}
 }
