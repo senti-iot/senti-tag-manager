@@ -45,16 +45,16 @@ router.post('/edit', async (req, res) => {
 		console.log('OrgId', orgId)
 		console.log('aclOrgResource', aclOrgResources)
 		if (!aclOrgResources) {
-			res.status(500).json()
+			res.status(500).json({"error": "ACL Error"})
 		}
 		let tag = req.body
-		let result = await tagService.editTag({ ...tag, orgId, appId })
+		let result = await tagService.editTag(tag)
 		if (result) {
 
 			res.status(200).json(result)
 		}
 		else {
-			res.status(500).json()
+			res.status(500).json({ result:result, "error": "Edit tag error" })
 		}
 	}
 	catch (e) {
