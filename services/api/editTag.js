@@ -32,6 +32,34 @@ const typeOfPrivilege = (resourceType) => {
 
 }
 
+router.post('/edit', async (req, res) => {
+	try {
+		console.log(req.lease.uuid)
+		let orgId = await sentiDataCore.getOrganisationIdByUserUUID(req.lease.uuid)
+		let appId = req.headers.appid
+		console.log(req.headers)
+		let aclOrgResources = await sentiDataCore.getAclOrgResourcesOnName(orgId)
+		console.log('OrgId', orgId)
+		console.log('aclOrgResource', aclOrgResources)
+		if (!aclOrgResources) {
+			res.status(500).json()
+		}
+		let tag = req.body
+		let result = await tagService.editTag({ ...tag, orgId, appId })
+		if (result) {
+
+			res.status(200).json(result)
+		}
+		else {
+			res.status(500).json()
+		}
+	}
+	catch (e) {
+		console.log(e)
+		res.status(500).json(e)
+	}
+})
+
 router.post('/add', async (req, res) => {
 	let tagUUIDs = req.body.tagUUIDs
 	let resources = req.body.resources
