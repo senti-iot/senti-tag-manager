@@ -6,6 +6,9 @@ const { aclClient } = require('../../server')
 const sentiTagService = require('../../lib/tag/tagService')
 const tagService = new sentiTagService()
 
+const sentiDatabrokerCoreService = require('../../lib/databrokerCore/sentiCoreService')
+const sentiDataCore = new sentiDatabrokerCoreService()
+
 const typeOfPrivilege = (resourceType) => {
 	switch (resourceType) {
 		case 2: //Organisation
