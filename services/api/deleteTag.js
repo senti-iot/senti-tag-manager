@@ -35,8 +35,8 @@ const typeOfPrivilege = (resourceType) => {
 
 }
 
-router.delete('/delete', async (req, res) => {
-	let tagUUID = req.body.tagUUID
+router.delete('/delete/:uuid', async (req, res) => {
+	let tagUUID = req.params.uuid
 
 	/*TODO: ACL */
 	let result = await tagService.deleteTag(tagUUID)
